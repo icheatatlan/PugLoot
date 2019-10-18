@@ -1,0 +1,7 @@
+## Interface: 11302
+## Title: PugLoot
+## Notes: Simple roll accounting and random loot distribution for PUG raids
+## Author: Urbit (Sulfuras)
+## Version: v1.0.0
+
+PugLoot.lua
