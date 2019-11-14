@@ -12,7 +12,7 @@ reset_roll_state()
 
 local get_announce_target = function (is_roll_msg)
   if IsInRaid() then
-    if is_roll_msg and UnitIsGroupLeader('player') or UnitIsGroupAssistant('player') then
+    if is_roll_msg and (UnitIsGroupLeader('player') or UnitIsGroupAssistant('player')) then
       return 'RAID_WARNING'
     else
       return 'RAID'
@@ -25,6 +25,10 @@ end
 local do_random_loot = function (item_link)
   roll_state.rolling_item = item_link
   roll_state.num_members = GetNumGroupMembers()
+
+  if #roll_state.members > 0 then
+    -- print('roll state tainted?', #roll_state.num_members)
+  end
 
   for n = 1, roll_state.num_members do
     local name = GetRaidRosterInfo(n)
@@ -65,7 +69,7 @@ local do_start_roll = function(item_link, duration)
     end
 
     table.sort(sorted_rolls, function (a, b)
-      return a.roll - b.roll
+      return a.roll > b.roll
     end)
 
     if #highest_rollers == 0 then
@@ -82,6 +86,11 @@ local do_start_roll = function(item_link, duration)
     end
 
     if #sorted_rolls > 0 then
+      -- truncate to ensure the chat message length limit isn't exceeded
+      while (#sorted_rolls > 5) do
+        table.remove(sorted_rolls, #sorted_rolls)
+      end
+
       local summary = 'Rolls:'
       for _, roll in ipairs(sorted_rolls) do
         summary = summary .. ' ' .. roll.name .. ' (' .. tostring(roll.roll) .. ')'
@@ -144,6 +153,7 @@ frame:SetScript('OnEvent', function (self, event, ...)
     end
 
     if is_member then
+      -- print('added roll', name, roll, min, max)
       roll_state.member_rolls[name] = roll
     end
   end
