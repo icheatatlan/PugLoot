@@ -50,8 +50,16 @@ local do_start_roll = function(item_link, duration)
   end
 
   SendChatMessage('ROLL ' .. item_link .. ' (' .. tostring(duration) .. ' seconds)', get_announce_target(true), nil, nil)
-
-  C_Timer.NewTimer(duration, function ()
+  
+  local countdown_start = 3
+  local countdown_is = countdown_start
+  
+  local roll_ticker_cb = function ()
+    SendChatMessage(tostring(countdown_is), get_announce_target(false), nil, nil)
+    countdown_is = countdown_is - 1
+  end
+  
+  local roll_end_cb = function ()
     local max_roll = 0
     local highest_rollers = {}
     local sorted_rolls = {}
@@ -100,7 +108,14 @@ local do_start_roll = function(item_link, duration)
     end
 
     reset_roll_state()
+  end
+  
+  C_Timer.After(duration-countdown_start-1, function ()
+    -- countdown_start equals the number of iterations of the ticker
+    C_Timer.NewTicker(1, roll_ticker_cb, countdown_start)
   end)
+  
+  C_Timer.After(duration, roll_end_cb)
 end
 
 local frame = CreateFrame('frame', 'PugLootEventFrame')
@@ -194,4 +209,3 @@ SlashCmdList["PUGLOOT"] = function (arg_str)
     print('Usage: /pugloot random [item] | /pugloot start [item]')
   end
 end
-
