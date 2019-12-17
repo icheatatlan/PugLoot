@@ -230,31 +230,28 @@ local update_master_loot_frame = function ()
     return
   end
 
-  local children = { MasterLooterFrame:GetChildren() }
-  local last = children[#children] -- should be the close button
-
   local set_textures = function (btn)
     local ntex = btn:CreateTexture()
-    ntex:SetTexture("Interface/Buttons/UI-Panel-Button-Up")
+    ntex:SetTexture('Interface/Buttons/UI-Panel-Button-Up')
     ntex:SetTexCoord(0, 0.625, 0, 0.6875)
     ntex:SetAllPoints()
     btn:SetNormalTexture(ntex)
 
     local htex = btn:CreateTexture()
-    htex:SetTexture("Interface/Buttons/UI-Panel-Button-Highlight")
+    htex:SetTexture('Interface/Buttons/UI-Panel-Button-Highlight')
     htex:SetTexCoord(0, 0.625, 0, 0.6875)
     htex:SetAllPoints()
     btn:SetHighlightTexture(htex)
 
     local ptex = btn:CreateTexture()
-    ptex:SetTexture("Interface/Buttons/UI-Panel-Button-Down")
+    ptex:SetTexture('Interface/Buttons/UI-Panel-Button-Down')
     ptex:SetTexCoord(0, 0.625, 0, 0.6875)
     ptex:SetAllPoints()
     btn:SetPushedTexture(ptex)
   end
 
   ui_button_random = CreateFrame('Button', 'PugLootButtonRandom', MasterLooterFrame)
-  ui_button_random:SetPoint('LEFT', last, 'RIGHT')
+  ui_button_random:SetPoint('TOPLEFT', MasterLooterFrame, 'TOPRIGHT')
   ui_button_random:SetText('Random')
   ui_button_random:SetWidth(72)
   ui_button_random:SetHeight(20)
