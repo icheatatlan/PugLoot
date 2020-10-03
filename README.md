@@ -23,6 +23,22 @@ Begins an open roll for an item that lasts 15 seconds.  All valid rolls (1-100) 
 
 The member with the highest roll is announced along with a summary of all the rolls.  In the event of a tie, all members who rolled the highest number are listed.
 
+
+
+`/pugloot start_ms [Some Item]`
+
+Begins an MS roll for an item that lasts 15 seconds.  All valid rolls (1-100) are recorded until the roll period ends.
+
+The member with the highest roll is announced along with a summary of all the rolls.  In the event of a tie, all members who rolled the highest number are listed.
+
+
+
+`/pugloot start_os [Some Item]`
+
+Begins an OS roll for an item that lasts 15 seconds.  All valid rolls (1-100) are recorded until the roll period ends.
+
+The member with the highest roll is announced along with a summary of all the rolls.  In the event of a tie, all members who rolled the highest number are listed.
+
  
 
 `/pugloot cancel`
