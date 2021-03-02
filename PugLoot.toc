@@ -2,6 +2,7 @@
 ## Title: PugLoot
 ## Notes: Simple roll accounting and random loot distribution for PUG raids
 ## Author: Urbit (Sulfuras)
-## Version: v1.1.1
+## Version: v1.2.0
+## SavedVariables: PUGLOOT_SETTINGS
 
 PugLoot.lua
