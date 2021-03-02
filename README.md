@@ -30,6 +30,10 @@ The member with the highest roll is announced along with a summary of all the ro
 Cancel an ongoing roll.  All rolls from the session are discarded.
 
 
+`/pugloot set_wait [time in seconds]`
+
+Sets the amount of time raid members have to roll for each item. defaults to 15 seconds.
+
 ##### Links
 - CurseForge: https://www.curseforge.com/wow/addons/pugloot/
 - GitHub: https://github.com/icheatatlan/PugLoot
