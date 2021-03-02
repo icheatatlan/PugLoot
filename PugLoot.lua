@@ -1,3 +1,7 @@
+PUGLOOT_SETTINGS = {
+  wait_time = 15
+}
+
 local roll_state = {}
 local reset_roll_state = function ()
   roll_state.expecting_self_roll = false
@@ -218,7 +222,7 @@ local handle_loot_button = function (kind)
     end
   elseif kind == 'START' then
     if not roll_state.rolling_item then
-      do_start_roll(link, 15)
+      do_start_roll(link, PUGLOOT_SETTINGS.wait_time)
     else
       do_cancel_roll()
     end
@@ -311,7 +315,7 @@ SlashCmdList["PUGLOOT"] = function (arg_str)
     end
   elseif cmd == 'start' and rest then
     if not roll_state.rolling_item then
-      do_start_roll(rest, 15)
+      do_start_roll(rest, PUGLOOT_SETTINGS.wait_time)
     else
       print('There is an ongoing roll for ' .. roll_state.rolling_item)
     end
@@ -321,8 +325,15 @@ SlashCmdList["PUGLOOT"] = function (arg_str)
     else
       print('There is no ongoing roll')
     end
+  elseif cmd == 'set_wait' and rest then
+    PUGLOOT_SETTINGS.wait_time = tonumber(rest)
+    print("Set wait time to " .. PUGLOOT_SETTINGS.wait_time .. " seconds")
   else
-    print('Usage: /pugloot random [item] | /pugloot start [item] | /pugloot cancel')
+    print('Usage:')
+    print('/pugloot random [item]')
+    print('/pugloot start [item]')
+    print('/pugloot cancel')
+    print('/pugloot set_wait [time in seconds]')
   end
 end
 
